@@ -11,9 +11,9 @@ import DashboardPage from '../components/DashboardPage'
 import LoginPage from '../components/LoginPage'
 import ErrorDetailPage from '../components/ErrorDetailPage'
 import AddErrorPost from '../components/AddErrorPost'
-import EditErrorPost from '../components/EditErrorPost'
 import Header from '../components/Header'
-import ConsoleErrorsPage from "../components/ConsoleErrorsPage"
+import ErrorsPublicPage from "../components/ErrorsPublicPage"
+import ErrorEditPage from "../components/ErrorEditPage"
 
 export const history = createBrowserHistory()
 
@@ -22,12 +22,12 @@ const AppRouter = () => (
     <div>
       <Header />
       <Switch>
-        <PublicRoute exact path="/" component={ConsoleErrorsPage} />
+        <Route exact path="/" component={ErrorsPublicPage} />
         <Route path="/post/:id" component={ErrorDetailPage} />
         <PublicRoute path="/login" component={LoginPage} />
         <PrivateRoute path="/dashboard" component={DashboardPage} />
         <PrivateRoute path="/add" component={AddErrorPost} />
-        <PrivateRoute path="/edit/:id" component={EditErrorPost} />
+        <PrivateRoute path="/edit/:id" component={ErrorEditPage} />
       </Switch>
     </div>
   </Router>

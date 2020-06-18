@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
-const AddErrorForm = ({ consoleError, handleSubmit }) => {
-  const [theError, setTheError] = useState('')
-  const [context, setContext] = useState('')
-  const [issue, setIssue] = useState('')
-  const [solution, setSolution] = useState('')
+const AddErrorForm = ({ handleSubmit, consoleError }) => {
+  const [theError, setTheError] = useState(consoleError ? consoleError.theError : '')
+  const [context, setContext] = useState(consoleError ? consoleError.theError : '')
+  const [issue, setIssue] = useState(consoleError ? consoleError.theError : '')
+  const [solution, setSolution] = useState(consoleError ? consoleError.theError : '')
   const [date, setDate] = useState({ now: new Date() })
-
-
-  console.log(date.now)
 
   const onSubmit = e => {
     e.preventDefault()

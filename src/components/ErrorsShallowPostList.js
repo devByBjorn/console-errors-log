@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ErrorShallowPost from './ErrorShallowPost'
 
-// Get all posts from all users. How? allConsoleErrorsReducer? 
-
 const ErrorsShallowPostList = () => {
   const consoleErrors = useSelector(state => state.consoleErrors)
+
   return (
     <ul>
       {consoleErrors.map(consoleError =>
@@ -14,7 +13,6 @@ const ErrorsShallowPostList = () => {
             id={consoleError.id}
             theError={consoleError.theError}
             date={consoleError.date}
-            context={consoleError.context}
           />
         </li>
       )}

@@ -1,6 +1,4 @@
-const initialState = []
-
-const consoleErrorsReducer = (state = initialState, action) => {
+const consoleErrorsReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_CONSOLE_ERROR':
       return [
@@ -13,6 +11,8 @@ const consoleErrorsReducer = (state = initialState, action) => {
           ? { ...consoleError, ...action.updates }
           : consoleError
       )
+    case 'DELETE_CONSOLE_ERROR':
+      return state.filter(consoleError => consoleError.id !== action.id)
     case 'SET_CONSOLE_ERRORS':
       return action.consoleErrors
     default:

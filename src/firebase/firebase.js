@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import { Provider } from 'react-redux';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -13,6 +14,9 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database()
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+googleAuthProvider.setCustomParameters({
+  prompt: 'select_account'
+})
 const twitterAuthProvider = new firebase.auth.TwitterAuthProvider()
 
 export { firebase, googleAuthProvider, twitterAuthProvider, database as default }

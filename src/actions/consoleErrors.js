@@ -5,12 +5,6 @@ const addConsoleError = (consoleError) => ({
   consoleError
 })
 
-const editConsoleError = (id, updates) => ({
-  type: 'EDIT_CONSOLE_ERROR',
-  id,
-  updates,
-})
-
 const addConsoleErrorToFirebase = (consoleErrorData = {}) =>
   (dispatch, getState) => {
     const {
@@ -31,12 +25,37 @@ const addConsoleErrorToFirebase = (consoleErrorData = {}) =>
 
     const uid = getState().auth.uid
 
-    return database.ref(`users/${uid}/consoleErrors`)
+    const privateData = database.ref(`users/${uid}/consoleErrors`)
       .push(consoleError)
       .then(ref => {
         dispatch(addConsoleError({ id: ref.key, ...consoleError }))
       })
+
+    return privateData
   }
+
+const editConsoleError = (id, updates) => ({
+  type: 'EDIT_CONSOLE_ERROR',
+  id,
+  updates,
+})
+
+const editConsoleErrorInFirebase = (id, updates) =>
+  (dispatch, getState) => {
+    const uid = getState().auth.uid
+
+    return database
+      .ref(`users/${uid}/consoleErrors/${id}`)
+      .update(updates)
+      .then(() => {
+        dispatch(editConsoleError(id, updates))
+      })
+  }
+
+const deleteConsoleError = (id) => ({
+  type: 'DELETE_CONSOLE_ERROR',
+  id,
+})
 
 const setConsoleErrors = (consoleErrors) => ({
   type: 'SET_CONSOLE_ERRORS',
@@ -64,4 +83,8 @@ const setConsoleErrorsFromFirebase = () =>
   }
 
 
-export { addConsoleErrorToFirebase, editConsoleError, setConsoleErrorsFromFirebase }
+export {
+  addConsoleErrorToFirebase,
+  editConsoleErrorInFirebase,
+  setConsoleErrorsFromFirebase,
+}
